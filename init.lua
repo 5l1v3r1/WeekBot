@@ -28,8 +28,13 @@ end
 
 local function Download(name, path)
 	coroutine.wrap(function()
-		local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..name)
-		WriteFile(name, body, path)
+		if path then
+			local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..path.."/"..name)
+			WriteFile(name, body, path)
+		else
+			local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..name)
+			WriteFile(name, body)
+		end
 		print(name.." file downloaded succesfully.")
 	end)()
 end
