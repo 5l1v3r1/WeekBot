@@ -1,7 +1,6 @@
 local timer = require("timer")
 local fs = require("fs")
 local http1 = require('coro-http')
-local http = require('http')
 local colorize = require('pretty-print').colorize
 
 local Files = {
