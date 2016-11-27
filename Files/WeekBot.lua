@@ -18,7 +18,6 @@ coroutine.wrap(function()
 		if answer == "N" then
 			print("Exiting.")
 			os.exit()
-			return
 		end
 	end
 end)()
