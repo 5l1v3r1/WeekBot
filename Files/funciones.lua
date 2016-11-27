@@ -61,4 +61,20 @@ func.Success = function(message, str)
     })
 end
 
+func.GetWebResultAsync = function(WeekbotVersion, http1)
+    coroutine.wrap(function()
+        local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/WeekBotVersion.txt")
+        if body ~= WeekbotVersion then
+            print("Your version: "..WeekbotVersion.."\nLatest version: "..body)
+            print("Please run\n\nluvit init.lua\n\nto download the latest bot version.")
+            print("Do you want to run the bot even if it's not up to date? Y/N")
+            local answer = io.read()
+            if answer == "N" then
+                print("Exiting.")
+                os.exit()
+            end
+        end
+    end)()
+end
+
 return func
