@@ -3,8 +3,27 @@ client = discordia.Client()
 local timer = require("timer")
 local help = require("help")
 base64 = require('base64')
-Http = require('coro-http')
+http1 = require('coro-http')
 command = require("commands")
+
+local WeekbotVersion = "0.0.1"
+coroutine.wrap(function()
+	local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/WeekBotVersion.txt")
+	if body ~= WeekbotVersion then
+		print("Your version: "..WeekbotVersion.."\nLatest version: "..body)
+		print("Please run\n\nluvit init.lua\n\nto download the latest bot version.")
+		timer.sleep(1000)
+		print("Do you want to run the bot even if it's not up to date? Y/N")
+		local answer = io.read()
+		if answer == "N" then
+			print("Exiting.")
+			os.exit()
+			return
+		end
+	end
+end)()
+
+local currentStatus = ""
 
 local function RandomFact(table)
 	assert(type(table) == "table", "RandomFact: table expected.")
@@ -34,11 +53,13 @@ local function UpdateBot(avatar, status)
 			local _, av = Http.request("GET", avatar)
 			client:setAvatar("data:image/png;base64,"..base64.encode(av))
 			client:setGameName(status)
+			currentStatus = status
 		end)
 		if success then
 			WriteFile("WeekBotModules","WeekBotAvatar", date[WhichDay].avatar)
 			print("Successfully changed the avatar.")
 			print("Successfully changed the status.")
+			currentStatus = status
 		else
 			print(result)
 		end
@@ -53,10 +74,14 @@ client:on("ready", function()
 		UpdateBot(date[WhichDay].avatar, date[WhichDay].status)
 	else
 		print("Bot was not updated as it was already.")
+		currentStatus = date[WhichDay].status
 	end
 end)
 
 client:on("messageCreate", function(message)
+	if currentStatus ~= date[WhichDay].status then
+		UpdateBot(date[WhichDay].avatar, date[WhichDay].status)
+	end
 	if not message or message.author == client.user then return end
 
 	local cmd, arg = string.match(message.content, '(%S+) (.*)')
@@ -71,9 +96,10 @@ client:on("messageCreate", function(message)
 		message.channel:sendMessage(" ", help[arg] or help["empty"])
 	end
 
-	if cmd == "!restart" then
+	if command[cmd] then -- !restart, !guilds
 		command[cmd](message, client)
 	end
+
 	if cmd == "!update" then
 		func.Requesting(message, "Updating myself...")
 		UpdateBot(date[WhichDay].avatar, date[WhichDay].status)
