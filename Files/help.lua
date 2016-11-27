@@ -28,13 +28,54 @@ return {
 			},
 		},
 	},
+	["!restart"] = {
+		["description"] = Promote, 
+		["color"] = date[WhichDay].color,
+		["fields"] = {
+			{
+				name = "!restart", 
+				value =  "I will restart myself.",
+				inline = true
+			},
+			{
+				name = "Requirement(s)", 
+				value =  "Be the owner of this Bot ;)",
+				inline = true
+			},
+		},
+	},
+	["!update"] = {
+		["description"] = Promote, 
+		["color"] = date[WhichDay].color,
+		["fields"] = {
+			{
+				name = "!update", 
+				value =  "I will update myself.",
+				inline = true
+			},
+			{
+				name = "Requirement(s)", 
+				value =  "Be the owner of this Bot ;)",
+				inline = true
+			},
+		},
+	},
 	["empty"] = {
 		["description"] = Promote, 
 		["color"] = date[WhichDay].color,
 		["fields"] = {
 			{
 				name = "Available help commands", 
-				value =  "!help !fact\n!help !help",
+				value =  [[!help !fact
+!help !help
+]],
+				inline = true
+			},
+			{
+				name = "Restricted help commands", 
+				value =  [[!help !restart
+!help !update
+]],
 				inline = false
 			},
 		},
