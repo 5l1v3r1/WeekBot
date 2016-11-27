@@ -6,7 +6,7 @@ base64 = require('base64')
 command = require("commands")
 http1 = require('coro-http')
 
-local WeekbotVersion = "0.0.3"
+local WeekbotVersion = "0.0.1"
 
 local currentStatus = ""
 
