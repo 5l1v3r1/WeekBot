@@ -19,4 +19,20 @@ return {
 			},
 		}) 
 	end,
+	["!guilds"] = function(message, client)
+		local _ = ""
+		for guild in client.guilds do
+			_ = _ .."\n".. tostring(guild)
+		end
+		message.channel:sendMessage(" ", {
+			["color"] = date[WhichDay].color,
+			["fields"] = {
+				{
+					name = "Guilds", 
+					value = _, 
+					inline = false
+				},
+			},
+		})
+	end,
 }
