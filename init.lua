@@ -28,13 +28,8 @@ end
 
 local function Download(name, path)
 	coroutine.wrap(function()
-		if path then
-			local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..path.."/"..name)
-			WriteFile(name, body, path)
-		else
-			local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..name)
-			WriteFile(name, body)
-		end
+		local head, body = http1.request("GET", "http://mrjuicylemon.es/Discordia/"..name)
+		WriteFile(name, body, path)
 		print(name.." file downloaded succesfully.")
 	end)()
 end
@@ -47,6 +42,4 @@ Download("Week.lua", "WeekBotModules")
 coroutine.wrap(function()
 	timer.sleep(1500)
 	print(colorize('highlight', "Finished downloading.\nNow you can start the bot.\n'luvit WeekBot'."))
-	timer.sleep(1500)
-	print(colorize('failure', "IMPORTANT:\nCreate a file in the folder WeekBotModules called token.txt and insert there your bot's token."))
 end)()
