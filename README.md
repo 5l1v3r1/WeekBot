@@ -1,7 +1,7 @@
 [![docs](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://luvit.io/install.html)
-# LuaDiscordBots
+# WeekBot
 
-**These bots are running using Discordia (https://github.com/SinisterRectus/Discordia) Library**
+**WeekBot is running using Discordia (https://github.com/SinisterRectus/Discordia) Library**
 
 **Discord API library written in Lua for the Luvit framework**
 
